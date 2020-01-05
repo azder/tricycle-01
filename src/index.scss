@@ -1,0 +1,25 @@
+$font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+            'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+
+$font-mono: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+
+
+@mixin font-smoothing($value: on) {
+    @if $value == on {
+        -webkit-font-smoothing:  antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    } @else {
+        -webkit-font-smoothing:  subpixel-antialiased;
+        -moz-osx-font-smoothing: auto;
+    }
+}
+
+body {
+    margin:      0;
+    font-family: $font-sans;
+    @include font-smoothing(on);
+}
+
+code {
+    font-family: $font-mono;
+}
