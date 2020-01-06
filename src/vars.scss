@@ -1,0 +1,15 @@
+@import '~bulma/sass/utilities/initial-variables';
+
+$font-sans:              -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                         'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+
+$font-mono:              source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+
+$slim-pad:               $gap / 4;
+
+// overrides for Bulma
+$family-sans-serif:      $font-sans;
+$family-monospace:       $font-mono;
+$primary:                $green;
+$input-background-color: #f3f3f8;
+$background:             #f3f3f8;

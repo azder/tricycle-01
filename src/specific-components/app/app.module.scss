@@ -1,0 +1,12 @@
+@import './src/vars.scss';
+@import '~bulma/sass/utilities/initial-variables';
+
+.main {
+    min-height: 100vh;
+}
+
+.page {
+    padding: $slim-pad;
+}
+
+
