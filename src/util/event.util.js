@@ -7,13 +7,19 @@ export const DELAY = Object.freeze({
 });
 
 
+export const target = (
+
+    event => event?.target
+
+);
+
+
 const missing = {preventDefault: noop};
 
 export const prevented$ = (
 
     fn => (
 
-        // eslint-disable-next-line no-shadow
         event => {
 
             (event ?? missing).preventDefault();
@@ -29,7 +35,6 @@ export const delayed = (
 
     (ms, fn) => (
 
-        // eslint-disable-next-line no-shadow
         event => {
             event.persist();
             return new Promise(resolve => {

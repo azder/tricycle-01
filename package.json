@@ -1,33 +1,26 @@
 {
   "name": "feta",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
-  "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.26",
-    "@fortawesome/free-solid-svg-icons": "^5.12.0",
-    "@fortawesome/react-fontawesome": "^0.1.8",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.4.0",
-    "@testing-library/user-event": "^7.2.1",
-    "classnames": "^2.2.6",
-    "prop-types": "^15.7.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0"
-  },
+  "proxy": "http://localhost:4000",
   "scripts": {
-    "start": "npm run cra:start",
+    "start": "npm run srv:dev & npm run cra:start",
     "build": "npm run cra:build",
     "test": "npm run cra:test",
     "cra:start": "react-scripts start",
     "cra:build": "react-scripts build",
     "cra:test": "react-scripts test",
     "cra:eject": "react-scripts eject",
+    "srv:start": "node src/server/index.mjs",
+    "srv:dev": "nodemon src/server/index.mjs",
     "bul:build": "node-sass --omit-source-map-url src/bulma.custom.scss src/bulma.custom.css",
     "bul:watch": "npm run bul:build -- --watch"
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "engines": {
+    "node": ">=13.2"
   },
   "browserslist": {
     "production": [
@@ -44,6 +37,24 @@
   "devDependencies": {
     "@azhder/eslint-config-azder": "0.0.7",
     "bulma": "^0.8.0",
-    "node-sass": "^4.13.0"
+    "node-sass": "^4.13.0",
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.26",
+    "@fortawesome/free-solid-svg-icons": "^5.12.0",
+    "@fortawesome/react-fontawesome": "^0.1.8",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.4.0",
+    "@testing-library/user-event": "^7.2.1",
+    "classnames": "^2.2.6",
+    "prop-types": "^15.7.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-redux": "^7.0.3",
+    "react-scripts": "3.3.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "express": "latest"
   }
 }

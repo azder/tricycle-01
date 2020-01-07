@@ -1,17 +1,22 @@
+import PLAT from '../../../../etc/platform.enum.mjs';
+import GENR from '../../../../etc/genre.enum.mjs';
+
+
 const {freeze} = Object;
+
 
 const platform = freeze({
     All:      '',
-    Youtube:  'youtube',
-    Vimeo:    'vimeo',
-    Facebook: 'facebook',
+    Youtube:  PLAT.youtube,
+    Vimeo:    PLAT.vimeo,
+    Facebook: PLAT.facebook,
 });
 
 const genre = freeze({
     All:       '',
-    Adventure: 'adventure',
-    Action:    'action',
-    Thriller:  'thriller',
+    Adventure: GENR.adventure,
+    Action:    GENR.action,
+    Thriller:  GENR.thriller,
 });
 
 const available = freeze({
@@ -41,6 +46,7 @@ const followers = freeze({
     '50k - 100k':  4,
     '100k - 500k': 5,
 });
+
 
 export default freeze({
     platform,

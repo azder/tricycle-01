@@ -1,16 +1,18 @@
 import PT from 'prop-types';
 import React from 'react';
-import {prevented$} from '../../util/event.util.js';
+import {prevented$} from '../../../util/event.util.js';
+import CN from './drop-down.module.scss';
+import classNames from 'classnames';
+
 
 const DropDownItem = (
 
     ({label, onSelect}) => (
 
-        <a
-            className="dropdown-item"
-            href="#"
+        <button
+            className={classNames(CN.button, 'dropdown-item')}
             onClick={prevented$(onSelect)}
-        >{label}</a>
+        >{label}</button>
 
     )
 

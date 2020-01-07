@@ -261,3 +261,4 @@ fabric.properties
 ### CUSTOM ###
 .idea
 /tmp
+!/.env

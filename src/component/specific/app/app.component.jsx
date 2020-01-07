@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import AdvancedSearch from '../search/advanced-search/advanced-search.component.jsx';
-import SimpleSearch from '../search/simple-search/simple-search.component.jsx';
+import SimpleSearch from '../search/simple-search/simple-search.container.js';
 
 import CN from './app.module.scss';
 
