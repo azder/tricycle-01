@@ -1,9 +1,14 @@
 import classNames from 'classnames';
 import React from 'react';
+
 import AdvancedSearch from '../search/advanced-search/advanced-search.component.jsx';
 import SimpleSearch from '../search/simple-search/simple-search.container.js';
 
+import ProspectsTitle from '../page/prospects-title.container.jsx';
+import Prospects from '../page/prospects.container.jsx';
+
 import CN from './app.module.scss';
+
 
 const App = (
 
@@ -22,6 +27,11 @@ const App = (
 
             <section className={classNames(CN.page, 'section')}>
                 <AdvancedSearch/>
+            </section>
+
+            <section className="container section">
+                <ProspectsTitle/>
+                <Prospects/>
             </section>
 
         </div>

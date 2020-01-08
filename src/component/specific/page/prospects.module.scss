@@ -1,0 +1,13 @@
+
+.incomplete::after {
+    content: '';
+    flex:    auto;
+}
+
+
+.star::after {
+    position: absolute;
+    right:    4px;
+    top:      0;
+    content:  '\002605';
+}
