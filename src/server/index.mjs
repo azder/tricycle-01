@@ -14,6 +14,7 @@ import PLAT from '../etc/platform.enum.mjs';
 import db$ from './db.mjs';
 
 
+// eslint-disable-next-line no-console
 const error$ = console.error;
 
 const onError$ = (
@@ -25,6 +26,14 @@ const onError$ = (
 
 process.on('uncaughtException', onError$);
 process.on('unhandledRejection', onError$);
+
+const wrap = (
+    mw => (req, res, next) => {
+        const promise = mw(req, res, next);
+        promise.catch(next);
+        return promise;
+    }
+);
 
 
 const BASE_DIR = dirname(fileURLToPath(import.meta.url));
@@ -51,20 +60,20 @@ app.use(bodyParser.json());
 
 app.get(
     '/q',
-    async (req, res) => {
+    wrap(async (req, res) => {
         const db = await db$();
         return res.json({data: db.prospects()});
-    }
+    })
 );
 
 
 app.post(
     '/me/favs',
-    async (req, res) => {
+    wrap(async (req, res) => {
         const db = await db$();
         const data = db.favorite$(req.body.data);
         return res.json({code: 'success', data});
-    }
+    })
 );
 
 
@@ -74,20 +83,17 @@ app.get(
 );
 
 
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
 
     error$(err.stack);
 
-    if (req.xhr) {
-        // eslint-disable-next-line no-magic-numbers
-        res.status(500).json({
-            code:    'error.server',
-            message: err.message,
-            data:    null,
-        });
-    } else {
-        next(err);
-    }
+    // eslint-disable-next-line no-magic-numbers
+    res.status(500).json({
+        code:    'error.server',
+        message: err.message,
+        data:    err.stack.split('\n'),
+    });
 
 });
 
