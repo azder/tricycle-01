@@ -7,7 +7,9 @@ const ProspectsTitle = (
     ({count, found}) => (
         found
             ? <p className="title is-size-5">
-                <span className="has-text-weight-bold">{count} Prospects</span> match your criteria
+                <span className="has-text-weight-bold">{
+                    count?.toLocaleString()
+                } Prospects</span> match your criteria
             </p>
             : null
     )

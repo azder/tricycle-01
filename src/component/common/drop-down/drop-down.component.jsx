@@ -1,12 +1,12 @@
 import {faSortDown, faSortUp} from '@fortawesome/free-solid-svg-icons';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import classNames from 'classnames';
+import cnames from 'classnames';
 import PT from 'prop-types';
 import React, {useState} from 'react';
 import {DELAY, delayed} from '../../../util/event.util.js';
 import {tie} from '../../../util/function.util.js';
 import {keyOf, valOf} from '../../../util/object.util.js';
+import Icon from '../icon.component.jsx';
 import DropDownItem from './drop-down-item.component.jsx';
 import CN from './drop-down.module.scss';
 import {findThe} from './drop-down.util.js';
@@ -27,14 +27,15 @@ const DropDown = (
         const toggle$ = tie(active$, !active);
 
         return (
-            <div className={classNames(CN.clickable, 'field')} onBlur={delayed(DELAY.short, deactivate$)}>
+            <div className={cnames(CN.clickable, 'field')} onBlur={delayed(DELAY.short, deactivate$)}>
 
                 <label className="label">{label}</label>
 
                 <div className="control is-expanded has-icons-right">
-                    <div className={classNames(CN.w100, 'dropdown', {'is-active': active})}>
+                    <div className={cnames(CN.w100, 'dropdown', {'is-active': active})}>
 
-                        <div className={classNames(CN.w100, 'dropdown-trigger')}>
+                        <div className={cnames(CN.w100, 'dropdown-trigger')}>
+
                             <input
                                 readOnly
                                 className="input has-text-left"
@@ -43,13 +44,16 @@ const DropDown = (
                                 onClick={() => toggle$()}
                                 value={keyOf(findThe(selected, values))}
                             />
-                            <span
-                                className={classNames(CN.indicator, 'icon is-right')}
-                            ><FontAwesomeIcon icon={active ? faSortUp : faSortDown}/></span>
+
+                            <Icon
+                                extra={cnames(CN.indicator, 'is-right')}
+                                value={active ? faSortUp : faSortDown}
+                            />
+
                         </div>
 
-                        <div className={classNames(CN.w100, 'dropdown-menu')} role="menu">
-                            <div className={classNames(CN.w100, 'dropdown-content')} onBlur={deactivate$}>
+                        <div className={cnames(CN.w100, 'dropdown-menu')} role="menu">
+                            <div className={cnames(CN.w100, 'dropdown-content')} onBlur={deactivate$}>
                                 {
                                     entries(values).map(
                                         ([key, val]) => (

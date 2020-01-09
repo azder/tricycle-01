@@ -5,9 +5,40 @@
 }
 
 
-.star::after {
+$square-size: 64px;
+$font-size:   12px;
+$offset:      0.1rem;
+
+
+.star {
+
     position: absolute;
-    right:    4px;
+    right:    0;
     top:      0;
-    content:  '\002605';
+    overflow: hidden;
+    width:    $square-size;
+    height:   $square-size;
+
+    .bg {
+        position:         absolute;
+        background-color: rgb(224, 224, 240);
+        top:              -$square-size/2;
+        right:            -$square-size/2;
+        height:           $square-size;
+        width:            $square-size;
+        z-index:          10;
+        transform:        rotate(-45deg);
+    }
+
+    .ico {
+        color:       rgb(182, 182, 210);
+        font-family: sans-serif;
+        //font-size:   $font-size;
+        right:       $offset;
+        top:         $offset;
+        z-index:     20;
+        position:    absolute;
+        cursor:      pointer;
+    }
+
 }

@@ -1,16 +1,15 @@
-import {faSearch} from '@fortawesome/free-solid-svg-icons';
+import cnames from 'classnames';
 import PT from 'prop-types';
 import React from 'react';
-import classNames from 'classnames';
-
-import FormButton from '../../../common/button.component.jsx';
 import DropDown from '../../../common/drop-down/drop-down.component.jsx';
+
+import FormButton from '../../../common/form-button/form-button.component.jsx';
 import Input from '../../../common/input.component.jsx';
 
 import ENUM from './advanced-search.enums.js';
-import Cell from './cell.component.jsx';
 
 import CN from './advanced-search.module.scss';
+import Cell from './cell.component.jsx';
 
 
 const AdvancedSearch = (
@@ -24,11 +23,11 @@ const AdvancedSearch = (
                 <Cell><DropDown label="Status" values={ENUM.available}/></Cell>
             </div>
 
-            <div className={classNames(CN.lower, 'level columns')}>
+            <div className={cnames(CN.lower, 'level columns')}>
                 <Cell><DropDown label="Videos" values={ENUM.videos}/></Cell>
                 <Cell><DropDown label="Views" values={ENUM.views}/></Cell>
                 <Cell><DropDown label="Followers" values={ENUM.followers}/></Cell>
-                <Cell><FormButton text="Search" icon={faSearch}/></Cell>
+                <Cell><FormButton text="Search" color="is-primary" weight="has-text-weight-bold"/></Cell>
             </div>
 
         </div>

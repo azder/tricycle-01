@@ -1,8 +1,10 @@
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import cnames from 'classnames';
 import PT from 'prop-types';
 import React, {useState} from 'react';
-import {prevented$, target} from '../../../../util/event.util.js';
+import {target} from '../../../../util/event.util.js';
+import Icon from '../../../common/icon.component.jsx';
+import CN from './simple-search.module.scss';
 
 
 const SimpleSearch = (
@@ -12,19 +14,16 @@ const SimpleSearch = (
         const [input, input$] = useState(name);
 
         return (
-            <form onSubmit={prevented$(() => search$(input))}>
-                <div className="field">
-                    <p className="control has-icons-left">
-                        <input
-                            className="input"
-                            type="text"
-                            placeholder={placeholder}
-                            onChange={event => input$(target(event).value)}
-                        />
-                        <span className="icon is-small is-left"><FontAwesomeIcon icon={faSearch}/></span>
-                    </p>
-                </div>
-            </form>
+            <p className={cnames(CN.grow, 'control has-icons-left')}>
+                <input
+                    className="input"
+                    type="text"
+                    placeholder={placeholder}
+                    onChange={event => input$(target(event).value)}
+                    onKeyDown={e => 'Enter' === e.key && search$(input)}
+                />
+                <Icon extra="is-small is-left" value={faSearch}/>
+            </p>
         );
     }
 );

@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import cnames from 'classnames';
 import PT from 'prop-types';
 import React from 'react';
 
@@ -6,7 +6,6 @@ import {rowsFrom} from '../../../util/array.util.js';
 import {idOf} from '../../../util/data.util.js';
 import Prospect from './prospect.component.jsx';
 import CN from './prospects.module.scss';
-
 
 
 const count = 2; // max item count per level (number of columns)
@@ -24,7 +23,7 @@ const Prospects = (
         <article>{
             rowsFrom(count, prospects).map((row, index) => (
                 <div
-                    className={classNames(
+                    className={cnames(
                         // a fix for left aligning of last row
                         // when less items than max, see fix down
                         count > row.length ? CN.incomplete : '',

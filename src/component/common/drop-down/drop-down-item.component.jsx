@@ -1,8 +1,8 @@
+import cnames from 'classnames';
 import PT from 'prop-types';
 import React from 'react';
 import {prevented$} from '../../../util/event.util.js';
 import CN from './drop-down.module.scss';
-import classNames from 'classnames';
 
 
 const DropDownItem = (
@@ -10,7 +10,7 @@ const DropDownItem = (
     ({label, onSelect}) => (
 
         <button
-            className={classNames(CN.button, 'dropdown-item')}
+            className={cnames(CN.button, 'dropdown-item')}
             onClick={prevented$(onSelect)}
         >{label}</button>
 

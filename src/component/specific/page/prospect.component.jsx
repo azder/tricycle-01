@@ -1,7 +1,10 @@
+import {faEye, faPlay, faUserFriends, faUserPlus, faVideo} from '@fortawesome/free-solid-svg-icons';
 import PT from 'prop-types';
 import React from 'react';
 import Avatar from '../../common/avatar.component.jsx';
-import CN from './prospects.module.scss';
+import FormButton from '../../common/form-button/form-button.component.jsx';
+import FavButton from './fav-button.component.jsx';
+import Stat from './stat.component.jsx';
 
 
 const Prospect = (
@@ -15,7 +18,7 @@ const Prospect = (
         const {picture, followers, views, videos, name} = value;
         return (
             <div className="card">
-                <div className={CN.star}></div>
+                <FavButton/>
                 <div className="card-content columns">
                     <div className="media column">
                         <div className="media-left">
@@ -24,27 +27,17 @@ const Prospect = (
                     </div>
                     <div className="card-content column">
                         <p className="card-header-title has-text-weight-bold">{name?.first} {name?.last}</p>
-                        <div className="columns">
-                            <div className="column is-narrow"><p>O</p></div>
-                            <div className="column is-narrow"><p>Followers<br/>{followers}</p></div>
-                        </div>
-                        <div className="columns">
-                            <div className="column is-narrow"><p>O</p></div>
-                            <div className="column is-narrow"><p>Views<br/>{views}</p></div>
-                        </div>
-                        <div className="columns">
-                            <div className="column is-narrow"><p>O</p></div>
-                            <div className="column is-narrow"><p>Videos<br/>{videos}</p>
-                            </div>
-                        </div>
+                        <Stat label="Followers" value={followers} icon={faUserFriends}/>
+                        <Stat label="Views" value={views} icon={faEye}/>
+                        <Stat label="Videos" value={videos} icon={faPlay}/>
                     </div>
                 </div>
                 <div className="card-footer">
                     <div className="card-footer-item">
-                        <button className="button" type="button">View profile</button>
+                        <FormButton text="View profile"/>
                     </div>
                     <div className="card-footer-item">
-                        <button className="button" type="button">Add</button>
+                        <FormButton title="Add" icon={faUserPlus}/>
                     </div>
                 </div>
             </div>
