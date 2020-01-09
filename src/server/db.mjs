@@ -5,13 +5,29 @@
 
 import {promises as pfs} from 'fs';
 
+import E from '../etc/error-code.enum.mjs';
+import {err$, toId} from './lib.mjs';
+
 // a mock database,
 // data is kept as a module variable
 // code outside will access it through functions
 let data;
 
 
-const prospects = () => data;
+const prospects = (
+
+    ({name}) => {
+
+        let ps = data; // eslint-disable-line init-declarations
+
+        if (name) {
+            ps = ps.filter(({name: {first, last}}) => first.includes(name) || last.includes(name));
+        }
+
+        return ps;
+    }
+
+);
 
 
 const favorites = (
@@ -23,8 +39,17 @@ const favorites = (
 const favorite$ = (
 
     ({id, active}) => {
-        for (const d of data) {
-            d.favorite = (id === d._id ? active : d.favorite);
+
+        if (active) {
+            const existing = favorites().map(f => toId(f));
+            // eslint-disable-next-line no-magic-numbers
+            if (2 < existing.length && !existing.includes(id)) {
+                throw err$({status: 422, code: E.invalid, message: 'too many favorites'});
+            }
+        }
+
+        for (const item of data) {
+            item.favorite = (id === toId(item) ? active : item.favorite);
         }
         return favorites();
     }

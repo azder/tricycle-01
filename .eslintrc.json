@@ -31,15 +31,7 @@
     },
 
     "rules": {
-        "no-shadow": "off",
-        "no-underscore-dangle": [
-            "warn",
-            {
-                "allow": [
-                    "_id"
-                ]
-            }
-        ]
+        "no-shadow": "off"
     }
 
 }

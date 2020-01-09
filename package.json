@@ -56,7 +56,6 @@
     "react-redux": "^7.0.3",
     "react-scripts": "3.3.0",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0",
-    "body-parser": "latest"
+    "redux-thunk": "^2.3.0"
   }
 }

@@ -7,11 +7,11 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import {dirname, join} from 'path';
 import {fileURLToPath} from 'url';
-
-import GENR from '../etc/genre.enum.mjs';
-import PLAT from '../etc/platform.enum.mjs';
-
 import db$ from './db.mjs';
+import {wrap} from './lib.mjs';
+
+// import GENR from '../etc/genre.enum.mjs';
+// import PLAT from '../etc/platform.enum.mjs';
 
 
 // eslint-disable-next-line no-console
@@ -27,14 +27,6 @@ const onError$ = (
 process.on('uncaughtException', onError$);
 process.on('unhandledRejection', onError$);
 
-const wrap = (
-    mw => (req, res, next) => {
-        const promise = mw(req, res, next);
-        promise.catch(next);
-        return promise;
-    }
-);
-
 
 const BASE_DIR = dirname(fileURLToPath(import.meta.url));
 const PATH = Object.freeze({
@@ -46,12 +38,12 @@ const PATH = Object.freeze({
 
 const PORT = 4000;
 
-// prime database
-db$({path: PATH.database}).catch(reason => {
-    error$('Problem connecting to database:', reason);
-});
+// prime the database
+db$({path: PATH.database}).catch(
+    why => error$('Problem connecting to database:', why)
+);
 
-console.log('ENUMS', PLAT, GENR,);
+// console.log('ENUMS', PLAT, GENR,);
 
 const app = express();
 app.use(express.static(PATH.build));
@@ -62,7 +54,7 @@ app.get(
     '/q',
     wrap(async (req, res) => {
         const db = await db$();
-        return res.json({data: db.prospects()});
+        return res.json({data: db.prospects(req.params)});
     })
 );
 
@@ -89,10 +81,10 @@ app.use((err, req, res, next) => {
     error$(err.stack);
 
     // eslint-disable-next-line no-magic-numbers
-    res.status(500).json({
-        code:    'error.server',
+    res.status(err.status || 500).json({
+        code:    err.code || 'error.server',
         message: err.message,
-        data:    err.stack.split('\n'),
+        data:    err.stack && err.stack.split('\n'),
     });
 
 });
