@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import ProspectsTitle from './prospects-title.component.jsx';
+import Component from './prospects-title.component.jsx';
 
 export default connect(
     ({prospects, criteria}) => {
@@ -13,4 +13,4 @@ export default connect(
             found,
         });
     },
-)(ProspectsTitle);
+)(Component);

@@ -3,14 +3,29 @@
 // but for the front end purpose
 // it's rolled up in a file or two in the same one
 
+import bodyParser from 'body-parser';
 import express from 'express';
-import {promises as fs} from 'fs';
-import {join, dirname} from 'path';
+import {dirname, join} from 'path';
 import {fileURLToPath} from 'url';
 
-
-import PLAT from '../etc/platform.enum.mjs';
 import GENR from '../etc/genre.enum.mjs';
+import PLAT from '../etc/platform.enum.mjs';
+
+import db$ from './db.mjs';
+
+
+const error$ = console.error;
+
+const onError$ = (
+    (e, o) => {
+        error$('Caught exception: ', e);
+        error$('Exception origin:', o);
+    }
+);
+
+process.on('uncaughtException', onError$);
+process.on('unhandledRejection', onError$);
+
 
 const BASE_DIR = dirname(fileURLToPath(import.meta.url));
 const PATH = Object.freeze({
@@ -22,25 +37,61 @@ const PATH = Object.freeze({
 
 const PORT = 4000;
 
+// prime database
+db$({path: PATH.database}).catch(reason => {
+    error$('Problem connecting to database:', reason);
+});
 
-console.log('ENUMS', PLAT, GENR);
+console.log('ENUMS', PLAT, GENR,);
 
 const app = express();
 app.use(express.static(PATH.build));
+app.use(bodyParser.json());
+
 
 app.get(
     '/q',
     async (req, res) => {
-        const buffer = await fs.readFile(PATH.database);
-        const data = JSON.parse(`${buffer}`);
-        return res.json({data});
+        const db = await db$();
+        return res.json({data: db.prospects()});
     }
 );
 
-app.get(
-    '/',
-    (req, res) => void res.sendFile(PATH.index)
+
+app.post(
+    '/me/favs',
+    async (req, res) => {
+        const db = await db$();
+        const data = db.favorite$(req.body.data);
+        return res.json({code: 'success', data});
+    }
 );
 
 
+app.get(
+    '/',
+    (req, res) => res.sendFile(PATH.index)
+);
+
+
+app.use((err, req, res, next) => {
+
+    error$(err.stack);
+
+    if (req.xhr) {
+        // eslint-disable-next-line no-magic-numbers
+        res.status(500).json({
+            code:    'error.server',
+            message: err.message,
+            data:    null,
+        });
+    } else {
+        next(err);
+    }
+
+});
+
 app.listen(PORT);
+
+
+

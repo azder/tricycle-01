@@ -1,9 +1,10 @@
-import {faEye, faPlay, faUserFriends, faUserPlus, faVideo} from '@fortawesome/free-solid-svg-icons';
+import {faEye, faPlay, faUserFriends, faUserPlus} from '@fortawesome/free-solid-svg-icons';
 import PT from 'prop-types';
 import React from 'react';
+import {idOf} from '../../../util/data.util.js';
 import Avatar from '../../common/avatar.component.jsx';
 import FormButton from '../../common/form-button/form-button.component.jsx';
-import FavButton from './fav-button.component.jsx';
+import FavButton from './fav-button/fav-button.container.js';
 import Stat from './stat.component.jsx';
 
 
@@ -15,10 +16,14 @@ const Prospect = (
             return null;
         }
 
-        const {picture, followers, views, videos, name} = value;
+        const {picture, followers, views, videos, name, favorite} = value;
+        const id = idOf(value);
+
         return (
             <div className="card">
-                <FavButton/>
+
+                <FavButton id={id} active={favorite}/>
+
                 <div className="card-content columns">
                     <div className="media column">
                         <div className="media-left">
@@ -53,6 +58,7 @@ Prospect.propTypes = {
         followers: PT.number,
         views:     PT.number,
         videos:    PT.number,
+        favorite:  PT.bool,
     }),
 };
 
