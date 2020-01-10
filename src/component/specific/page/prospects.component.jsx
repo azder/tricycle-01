@@ -18,60 +18,55 @@ const width = `${100 / itemsPerRow}%`; // width per each item/column
 
 const Prospects = (
 
-    ({prospects, unrolled, unroll$}) => {
+    ({prospects, unrolled, unroll$}) => (
 
-        console.log('Prospects()', unrolled, prospects.length);
-
-        return (
-
-            <article>
-                {
-                    rowsFrom(itemsPerRow, prospects).map((row, index) => (
-                        <div
-                            className={cnames(
-                                // a fix for left aligning of last row
-                                // when less items than max, see fix down
-                                itemsPerRow > row.length ? CN.incomplete : '',
-                                'level columns'
-                            )}
-                            key={index}
-                        >
-                            {
-                                row.map(item => (
-                                    <div
-                                        className={cnames(
-                                            'level-item column',
-                                            {'is-hidden': item.hidden},
-                                            CN.cell
-                                        )}
-                                        key={idOf(item)}
-                                        style={
-                                            // works with CN.incomplete on parent
-                                            // set on all columns, see fix above
-                                            {width, maxWidth: width}
-                                        }
-                                    >
-                                        <Prospect value={item}/>
-                                    </div>
-                                ))
-                            }
-                        </div>
-                    ))
-                }
-                {
-                    unrolled || INITIAL_VISIBLE > prospects.length
-                        ? null
-                        : <p className="container has-text-centered">
-                            <button
-                                className="button is-link"
-                                onClick={() => unroll$()}
-                            >more
-                            </button>
-                        </p>
-                }
-            </article>
-        );
-    }
+        <article>
+            {
+                rowsFrom(itemsPerRow, prospects).map((row, index) => (
+                    <div
+                        className={cnames(
+                            // a fix for left aligning of last row
+                            // when less items than max, see fix down
+                            itemsPerRow > row.length ? CN.incomplete : '',
+                            'level columns'
+                        )}
+                        key={index}
+                    >
+                        {
+                            row.map(item => (
+                                <div
+                                    className={cnames(
+                                        'level-item column',
+                                        {'is-hidden': item.hidden},
+                                        CN.cell
+                                    )}
+                                    key={idOf(item)}
+                                    style={
+                                        // works with CN.incomplete on parent
+                                        // set on all columns, see fix above
+                                        {width, maxWidth: width}
+                                    }
+                                >
+                                    <Prospect value={item}/>
+                                </div>
+                            ))
+                        }
+                    </div>
+                ))
+            }
+            {
+                unrolled || INITIAL_VISIBLE > prospects.length
+                    ? null
+                    : <p className="container has-text-centered">
+                        <button
+                            className="button is-link"
+                            onClick={() => unroll$()}
+                        >more
+                        </button>
+                    </p>
+            }
+        </article>
+    )
 
 );
 
