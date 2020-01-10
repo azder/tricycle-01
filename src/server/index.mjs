@@ -14,9 +14,6 @@ import SC from '../etc/status-code.enum.mjs';
 import db$ from './db.mjs';
 import {wrap} from './lib.mjs';
 
-// import GENR from '../etc/genre.enum.mjs';
-// import PLAT from '../etc/platform.enum.mjs';
-
 
 // eslint-disable-next-line no-console
 const error$ = console.error;
@@ -56,8 +53,15 @@ app.use(bodyParser.json());
 app.get(
     '/q',
     wrap(async (req, res) => {
+
         const db = await db$();
-        return res.json({data: db.prospects(req.params)});
+        const data = db.prospects(req.query);
+
+        return res.json({
+            code:    EC.ok,
+            message: `List of ${data.length} prospects`,
+            data,
+        });
     })
 );
 
@@ -67,7 +71,7 @@ app.post(
     wrap(async (req, res) => {
         const db = await db$();
         const data = db.favorite$(req.body.data);
-        return res.json({code: EC.success, data});
+        return res.json({code: EC.ok, data});
     })
 );
 
@@ -76,7 +80,7 @@ app.post(
     wrap(async (req, res) => {
         const db = await db$();
         const data = db.friend$(req.body.data);
-        return res.json({code: EC.success, data});
+        return res.json({code: EC.ok, data});
     })
 );
 

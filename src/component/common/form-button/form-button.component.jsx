@@ -8,23 +8,28 @@ import CN from './form-button.module.scss';
 
 const FormButton = (
 
-    ({icon, text, title, color, weight, href, onClick}) => (
+    ({icon, text, title, color, weight, href, onClick}) => {
 
-        <div className={cnames(CN.grow, 'field')} onClick={onClick}>
-            <p className="control is-expanded">{
-                href
-                    ? <a href={href} title={title} className={cnames(color, weight, 'button is-fullwidth')}>
-                        <Icon value={icon}/>
-                        {text && <span>{text}</span>}
-                    </a>
-                    : <button title={title} className={cnames(color, weight, 'button is-fullwidth')}>
-                        <Icon value={icon}/>
-                        {text && <span>{text}</span>}
-                    </button>
-            }</p>
-        </div>
+        const cn = cnames(color, weight, 'button is-fullwidth');
 
-    )
+        return (
+
+            <div className={cnames(CN.grow, 'field')} onClick={onClick}>
+                <p className="control is-expanded">{
+                    href
+                        ? <a href={href} title={title} className={cn}>
+                            <Icon value={icon}/>
+                            {text && <span>{text}</span>}
+                        </a>
+                        : <button title={title} className={cn}>
+                            <Icon value={icon}/>
+                            {text && <span>{text}</span>}
+                        </button>
+                }</p>
+            </div>
+
+        );
+    }
 );
 
 

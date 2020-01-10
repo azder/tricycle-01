@@ -7,6 +7,21 @@
 
 import E from '../etc/error-code.enum.mjs';
 
+
+export const int = (
+
+    value => parseInt(value, 10)
+
+);
+
+
+export const bool = (
+
+    value => ('true' === value || '1' === value || true === value)
+
+);
+
+
 export const toId = (
 
     data => {

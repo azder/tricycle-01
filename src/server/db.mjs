@@ -9,7 +9,8 @@ import {promises as pfs} from 'fs';
 
 import EC from '../etc/error-code.enum.mjs';
 import SC from '../etc/status-code.enum.mjs';
-import {err$, toId} from './lib.mjs';
+import {bool, err$, toId} from './lib.mjs';
+import {videosFilter, viewsFilter, followersFilter} from './filters.mjs';
 
 // a mock database,
 // data is kept as a module variable
@@ -19,15 +20,47 @@ let data;
 
 const prospects = (
 
-    ({name}) => {
+    criteria => {
 
+        const {name, platform, genre, available, videos, views, followers} = criteria;
         let ps = data; // eslint-disable-line init-declarations
 
         if (name) {
-            ps = ps.filter(({name: {first, last}}) => first.includes(name) || last.includes(name));
+            const lower = (name || '').toLowerCase();
+            ps = ps.filter(({name: n}) => {
+                const first = (n.first || '').toLowerCase();
+                const last = (n.last || '').toLowerCase();
+                return first.includes(lower) || last.includes(lower);
+            });
+        }
+
+        if (platform) {
+            ps = ps.filter(({platform: ptf}) => ptf === platform);
+        }
+
+        if (genre) {
+            ps = ps.filter(({genre: gnr}) => gnr === genre);
+        }
+
+        const status = bool(available);
+        ps = ps.filter(({isAvailable}) => isAvailable === status);
+
+        if (videos) {
+            ps = ps.filter(videosFilter.bind(null, videos));
+        }
+
+
+        if (views) {
+            ps = ps.filter(viewsFilter.bind(null, views));
+        }
+
+
+        if (followers) {
+            ps = ps.filter(followersFilter.bind(null, followers));
         }
 
         return ps;
+
     }
 
 );

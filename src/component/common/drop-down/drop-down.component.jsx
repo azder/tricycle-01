@@ -13,15 +13,14 @@ import {findThe} from './drop-down.util.js';
 
 const {entries} = Object;
 
+
 const DropDown = (
 
 
-    ({label, values}) => {
+    ({label, values, onChange}) => {
 
         const [selected, selected$] = useState(valOf(entries(values)[0]));
         const [active, active$] = useState(false);
-
-        // console.log('DropDown()', label, values, active, initialState, selected);
 
         const deactivate$ = tie(active$, false);
         const toggle$ = tie(active$, !active);
@@ -62,6 +61,7 @@ const DropDown = (
                                                 label={key}
                                                 onSelect={() => {
                                                     selected$(val);
+                                                    onChange(val);
                                                     active$(false);
                                                 }}
                                             />
@@ -81,8 +81,9 @@ const DropDown = (
 
 
 DropDown.propTypes = {
-    label:  PT.string,
-    values: PT.object,
+    label:    PT.string,
+    values:   PT.object,
+    onChange: PT.func,
 };
 
 export default DropDown;
