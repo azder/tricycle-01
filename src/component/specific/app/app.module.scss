@@ -1,13 +1,15 @@
 @import './src/vars.scss';
-@import '~bulma/sass/utilities/initial-variables';
-
+//@import '~bulma/sass/utilities/initial-variables';
+@import '~bulma';
 
 .main {
     min-height: 100vh;
 }
 
 .page {
-    padding: $slim-pad;
+    padding:    $slim-pad;
+    //noinspection SassScssResolvedByNameOnly
+    margin-top: $navbar-height;
 }
 
 
