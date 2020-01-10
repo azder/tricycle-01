@@ -40,7 +40,7 @@ const Prospect = (
                 </div>
                 <div className="card-footer">
                     <div className="card-footer-item">
-                        <FormButton text="View profile"/>
+                        <FormButton href={`/profile/${name?.first}-${name?.last}/${id}`} text="View profile"/>
                     </div>
                     <div className="card-footer-item">
                         <FriendButton id={id} active={friend}/>
