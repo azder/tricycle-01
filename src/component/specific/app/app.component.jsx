@@ -1,8 +1,8 @@
 import cnames from 'classnames';
 import React from 'react';
 
-import ProspectsTitle from '../page/prospects-title.container.jsx';
-import Prospects from '../page/prospects.container.jsx';
+import ProspectsTitle from '../page/prospects-title.container.js';
+import Prospects from '../page/prospects.container.js';
 
 import AdvancedSearch from '../search/advanced-search/advanced-search.container.js';
 import SimpleSearch from '../search/simple-search/simple-search.container.js';

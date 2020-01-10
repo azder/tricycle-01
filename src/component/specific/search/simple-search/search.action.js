@@ -18,7 +18,7 @@ export default (
                 name,
             }));
 
-            const response = await getJson(`/q?${name}`);
+            const response = await getJson(`/q?name=${name}`);
 
 
             dispatch$(found(response?.data));

@@ -8,11 +8,19 @@ export default (
             return {...state, favs: load ?? []};
         }
 
-        if (AT.friendedProspect) {
+        if (AT.friendedProspect === type) {
             return {...state, friends: load ?? []};
         }
 
-        return state ?? {favs: [], friends: []};
+        if (AT.unroll === type) {
+            return {...state, unrolled: true};
+        }
+
+        if (AT.simpleSearch === type || AT.advancedSearch === type) {
+            return {...state, unrolled: false};
+        }
+
+        return state ?? {favs: [], friends: [], unrolled: true};
     }
 
 );

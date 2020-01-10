@@ -3,7 +3,9 @@ export default Object.freeze({
     simpleSearch:   Symbol('action.search.simple'),
     advancedSearch: Symbol('action.search.advanced'),
 
-    prospectsFound:    Symbol('action.prospects.get'),
+    prospectsFound: Symbol('action.prospects.get'),
+    unroll:         Symbol('action.prospects.unroll'),
+
     favoritedProspect: Symbol('action.prospect.favorite'),
     friendedProspect:  Symbol('action.prospect.friended'),
 
