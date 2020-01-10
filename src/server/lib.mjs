@@ -35,6 +35,7 @@ export const err$ = (
 );
 
 
+// helper for async routes to propagate errors
 export const wrap = (
     mw => (req, res, next) => {
         const promise = mw(req, res, next);
@@ -42,3 +43,5 @@ export const wrap = (
         return promise;
     }
 );
+
+

@@ -25,7 +25,7 @@ export default (
                     }
                 );
 
-                if (EC.success === code) {
+                if (EC.ok === code) {
                     dispatch$(favorited(data));
                 } else {
                     // eslint-disable-next-line no-console

@@ -1,16 +1,23 @@
+import EC from '../etc/error-code.enum.mjs';
 import H from '../etc/header-name.enum.js';
 import M from '../etc/media-type.enum.js';
 
 
-const reported$ = (
-    (where, response) => {
+const parse = (
+    async (where, response) => {
 
         if (!response.ok) {
             // eslint-disable-next-line no-console
             console.warn('fetch.util.js', where, response);
         }
 
-        return response.json();
+        const parsed = await response.json();
+        return {
+            code:    EC.ok,
+            message: '',
+            data:    void 0,
+            ...parsed,
+        };
 
     }
 );
@@ -23,7 +30,7 @@ export const getJson = (
             headers: {[H.accept]: M.json, [H.ctype]: M.json},
         });
 
-        return reported$('getJson()', response);
+        return parse('getJson()', response);
     }
 
 );
@@ -39,7 +46,7 @@ export const postJson = (
             headers: {[H.accept]: M.json, [H.ctype]: M.json},
         });
 
-        return reported$('postJson()', response);
+        return parse('postJson()', response);
     }
 
 );

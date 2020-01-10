@@ -47,7 +47,6 @@ db$({path: PATH.database}).catch(
     why => error$('Problem connecting to database:', why)
 );
 
-// console.log('ENUMS', PLAT, GENR,);
 
 const app = express();
 app.use(express.static(PATH.build));
@@ -68,6 +67,15 @@ app.post(
     wrap(async (req, res) => {
         const db = await db$();
         const data = db.favorite$(req.body.data);
+        return res.json({code: EC.success, data});
+    })
+);
+
+app.post(
+    '/me/friends',
+    wrap(async (req, res) => {
+        const db = await db$();
+        const data = db.friend$(req.body.data);
         return res.json({code: EC.success, data});
     })
 );

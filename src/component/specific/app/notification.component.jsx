@@ -7,12 +7,14 @@ import CN from './app.module.scss';
 
 const Notification = (
 
-    ({notifications, clear$}) => (
+    ({notifications, clear$}) => {
 
-        <div className={cnames(CN.toast, {'is-hidden': !notifications?.length})}>
+        return (
 
-            <button className="delete" onClick={() => clear$()}/>
-            {
+            <div className={cnames(CN.toast, {'is-hidden': !notifications?.length})}>
+
+                <button className="delete" onClick={() => clear$()}/>
+                {
                     notifications?.map?.(
                         ({color, message}, index) => (
                             <p
@@ -27,10 +29,11 @@ const Notification = (
                             </p>
                         )
                     )
-            }
-        </div>
+                }
+            </div>
 
-    )
+        );
+    }
 
 );
 

@@ -1,5 +1,30 @@
 import AT from '../etc/action-type.enum.js';
 import {idOf} from '../util/data.util.js';
+import {tie} from '../util/function.util.js';
+
+
+const mark = (
+
+    (field, load, state) => {
+
+        const ids = (load ?? [])
+            .filter(p => p[field])
+            .map(idOf);
+
+        return state.map(
+            p => ({
+                ...p,
+                [field]: ids.includes(idOf(p)),
+            })
+        );
+    }
+
+);
+
+
+const withFavsMarked = tie(mark, 'favorite');
+const withFriendsMarked = tie(mark, 'friend');
+
 
 export default (
 
@@ -10,17 +35,11 @@ export default (
         }
 
         if (AT.favoritedProspect === type) {
+            return withFavsMarked(load, state);
+        }
 
-            const ids = load
-                .filter(p => p.favorite)
-                .map(p => idOf(p));
-
-            return state.map(
-                p => ({
-                    ...p,
-                    favorite: ids.includes(idOf(p)),
-                })
-            );
+        if (AT.friendedProspect === type) {
+            return withFriendsMarked(load, state);
         }
 
         return state ?? [];

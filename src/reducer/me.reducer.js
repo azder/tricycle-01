@@ -8,7 +8,11 @@ export default (
             return {...state, favs: load ?? []};
         }
 
-        return state ?? {favs: []};
+        if (AT.friendedProspect) {
+            return {...state, friends: load ?? []};
+        }
+
+        return state ?? {favs: [], friends: []};
     }
 
 );

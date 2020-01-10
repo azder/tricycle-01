@@ -33,36 +33,62 @@ const prospects = (
 );
 
 
-const favorites = (
+const favorites = (() => data.filter(d => d.favorite));
+const friends = (() => data.filter(d => d.friend));
 
-    () => data.filter(d => d.favorite)
+const LIMIT = 3;
 
-);
+const validate = (
 
-const favorite$ = (
+    ({all, id, what}) => {
 
-    ({id, active}) => {
+        const existing = all().map(toId);
 
-        if (active) {
-            const existing = favorites().map(f => toId(f));
-            // eslint-disable-next-line no-magic-numbers
-            if (2 < existing.length && !existing.includes(id)) {
-                throw err$({status: SC.invalid, code: EC.invalid, message: 'too many favorites'});
-            }
+        if (LIMIT > existing.length || existing.includes(id)) {
+            return;
         }
 
-        for (const item of data) {
-            item.favorite = (id === toId(item) ? active : item.favorite);
-        }
-        return favorites();
+        throw err$({
+            status:  SC.invalid,
+            code:    EC.invalid,
+            message: `Too many ${what}. Only ${LIMIT} allowed`,
+        });
     }
 
 );
+
+const marker = (
+
+    options => (
+
+        ({id, active}) => {
+
+            if (active) {
+                // check if LIMIT might be exceeded
+                validate({...options, id});
+            }
+
+            const {all, field} = options;
+            for (const item of data) {
+                item[field] = (id === toId(item) ? active : item[field]);
+            }
+
+            return all();
+        }
+
+    )
+
+);
+
+const favorite$ = marker({all: favorites, what: 'favorites', field: 'favorite'});
+const friend$ = marker({all: friends, what: 'friends', field: 'friend'});
 
 
 const db = {
     favorite$,
     favorites,
+    friend$,
+    friends,
     prospects,
 };
 

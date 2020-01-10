@@ -5,6 +5,7 @@ export default Object.freeze({
 
     prospectsFound:    Symbol('action.prospects.get'),
     favoritedProspect: Symbol('action.prospect.favorite'),
+    friendedProspect:  Symbol('action.prospect.friended'),
 
     notifySuccess: Symbol('action.notify.success'),
     notifyInfo:    Symbol('action.notify.info'),

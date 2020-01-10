@@ -8,9 +8,9 @@ import CN from './form-button.module.scss';
 
 const FormButton = (
 
-    ({icon, text, title, color, weight}) => (
+    ({icon, text, title, color, weight, onClick}) => (
 
-        <div className={cnames(CN.grow, 'field')}>
+        <div className={cnames(CN.grow, 'field')} onClick={onClick}>
             <p className="control is-expanded">
                 <button className={cnames(color, weight, 'button is-fullwidth')} title={title}>
                     <Icon value={icon}/>
@@ -24,11 +24,12 @@ const FormButton = (
 
 
 FormButton.propTypes = {
-    icon:   PT.object,
-    text:   PT.string,
-    title:  PT.string,
-    color:  PT.oneOf([CC.none, CC.primary, CC.link, CC.info, CC.success, CC.warning, CC.danger]),
-    weight: PT.oneOf(['', 'has-text-weight-light', 'has-text-weight-normal', 'has-text-weight-medium', 'has-text-weight-semibold', 'has-text-weight-bold']),
+    icon:    PT.object,
+    text:    PT.string,
+    title:   PT.string,
+    color:   PT.oneOf([CC.none, CC.primary, CC.link, CC.info, CC.success, CC.warning, CC.danger]),
+    weight:  PT.oneOf(['', 'has-text-weight-light', 'has-text-weight-normal', 'has-text-weight-medium', 'has-text-weight-semibold', 'has-text-weight-bold']),
+    onClick: PT.func,
 };
 
 export default FormButton;

@@ -15,7 +15,7 @@ export default (
 
         if (ATS.includes(type)) {
             const color = CCS[type] ?? '';
-            const message = load ?? `*** unknown ${color ?? type} ***`;
+            const message = String(load) ?? `*** unknown ${color ?? type} ***`;
             return [...state, {color, message}];
         }
 
