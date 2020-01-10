@@ -1,3 +1,10 @@
+// README:
+// this will usually be a separate project
+// not just a mock server with mock database
+// but for the front end purpose
+// it's rolled up in a file or two in the same one
+
+
 import E from '../etc/error-code.enum.mjs';
 
 export const toId = (

@@ -6,7 +6,7 @@ import {Provider} from 'react-redux';
 import './index.scss';
 import * as serviceWorker from './service-worker.js';
 import App from './component/specific/app/app.component.jsx';
-import store from './store.singleton.js';
+import store from './etc/store.singleton.js';
 
 
 ReactDOM.render(

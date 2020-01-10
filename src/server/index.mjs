@@ -1,12 +1,16 @@
 // README:
 // this will usually be a separate project
+// not just a mock server with mock database
 // but for the front end purpose
 // it's rolled up in a file or two in the same one
+
 
 import bodyParser from 'body-parser';
 import express from 'express';
 import {dirname, join} from 'path';
 import {fileURLToPath} from 'url';
+import EC from '../etc/error-code.enum.mjs';
+import SC from '../etc/status-code.enum.mjs';
 import db$ from './db.mjs';
 import {wrap} from './lib.mjs';
 
@@ -64,7 +68,7 @@ app.post(
     wrap(async (req, res) => {
         const db = await db$();
         const data = db.favorite$(req.body.data);
-        return res.json({code: 'success', data});
+        return res.json({code: EC.success, data});
     })
 );
 
@@ -81,8 +85,8 @@ app.use((err, req, res, next) => {
     error$(err.stack);
 
     // eslint-disable-next-line no-magic-numbers
-    res.status(err.status || 500).json({
-        code:    err.code || 'error.server',
+    res.status(err.status || SC.server).json({
+        code:    err.code || EC.server,
         message: err.message,
         data:    err.stack && err.stack.split('\n'),
     });

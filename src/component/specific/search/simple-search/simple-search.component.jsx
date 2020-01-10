@@ -8,10 +8,9 @@ import CN from './simple-search.module.scss';
 
 
 const SimpleSearch = (
-    props => {
+    ({placeholder, search$, init}) => {
 
-        const {placeholder, search$, name} = props;
-        const [input, input$] = useState(name);
+        const [name, name$] = useState(init);
 
         return (
             <p className={cnames(CN.grow, 'control has-icons-left')}>
@@ -19,8 +18,8 @@ const SimpleSearch = (
                     className="input"
                     type="text"
                     placeholder={placeholder}
-                    onChange={event => input$(target(event).value)}
-                    onKeyDown={e => 'Enter' === e.key && search$(input)}
+                    onChange={event => name$(target(event).value)}
+                    onKeyDown={e => 'Enter' === e.key && search$({name})}
                 />
                 <Icon extra="is-small is-left" value={faSearch}/>
             </p>
@@ -29,7 +28,7 @@ const SimpleSearch = (
 );
 
 SimpleSearch.propTypes = {
-    name:        PT.string,
+    init:        PT.string,
     placeholder: PT.string,
     search$:     PT.func,
 };

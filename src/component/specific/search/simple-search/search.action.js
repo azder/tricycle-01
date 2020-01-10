@@ -10,7 +10,7 @@ const found = tie(action, AT.prospectsFound);
 
 export default (
 
-    name => (
+    ({name}) => (
 
         async dispatch$ => {
 

@@ -2,14 +2,17 @@ import H from '../etc/header-name.enum.js';
 import M from '../etc/media-type.enum.js';
 
 
-// eslint-disable-next-line no-console
-const error$ = console.error.bind(console, 'fetch.util.js');
+const reported$ = (
+    (where, response) => {
 
+        if (!response.ok) {
+            // eslint-disable-next-line no-console
+            console.warn('fetch.util.js', where, response);
+        }
 
-export const getText = (
+        return response.json();
 
-    async uri => (await fetch(uri)).text()
-
+    }
 );
 
 
@@ -19,12 +22,8 @@ export const getJson = (
         const response = await fetch(uri, {
             headers: {[H.accept]: M.json, [H.ctype]: M.json},
         });
-        if (!response.ok) {
-            const {statusText, status} = response;
-            error$('getJson()', status, statusText); // eslint-disable-line no-console
-            throw response;
-        }
-        return response.json();
+
+        return reported$('getJson()', response);
     }
 
 );
@@ -40,13 +39,7 @@ export const postJson = (
             headers: {[H.accept]: M.json, [H.ctype]: M.json},
         });
 
-        if (!response.ok) {
-            const {statusText, status} = response;
-            error$('getJson()', status, statusText); // eslint-disable-line no-console
-            throw response;
-        }
-
-        return response.json();
+        return reported$('postJson()', response);
     }
 
 );

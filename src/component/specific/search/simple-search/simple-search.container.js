@@ -4,6 +4,6 @@ import search$ from './search.action.js';
 
 
 export default connect(
-    ({criteria: {name}}) => ({name}),
+    ({criteria: {name: init}}) => ({init}),
     {search$},
 )(Component);

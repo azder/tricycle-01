@@ -1,11 +1,14 @@
 // README:
 // this will usually be a separate project
+// not just a mock server with mock database
 // but for the front end purpose
 // it's rolled up in a file or two in the same one
 
+
 import {promises as pfs} from 'fs';
 
-import E from '../etc/error-code.enum.mjs';
+import EC from '../etc/error-code.enum.mjs';
+import SC from '../etc/status-code.enum.mjs';
 import {err$, toId} from './lib.mjs';
 
 // a mock database,
@@ -44,7 +47,7 @@ const favorite$ = (
             const existing = favorites().map(f => toId(f));
             // eslint-disable-next-line no-magic-numbers
             if (2 < existing.length && !existing.includes(id)) {
-                throw err$({status: 422, code: E.invalid, message: 'too many favorites'});
+                throw err$({status: SC.invalid, code: EC.invalid, message: 'too many favorites'});
             }
         }
 

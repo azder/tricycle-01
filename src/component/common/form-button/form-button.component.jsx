@@ -1,6 +1,7 @@
 import cnames from 'classnames';
 import PT from 'prop-types';
 import React from 'react';
+import CC from '../../../etc/color-code.enum.js';
 import Icon from '../icon.component.jsx';
 import CN from './form-button.module.scss';
 
@@ -26,7 +27,7 @@ FormButton.propTypes = {
     icon:   PT.object,
     text:   PT.string,
     title:  PT.string,
-    color:  PT.oneOf(['', 'is-primary', 'is-link', 'is-info', 'is-success', 'is-warning', 'is-danger']),
+    color:  PT.oneOf([CC.none, CC.primary, CC.link, CC.info, CC.success, CC.warning, CC.danger]),
     weight: PT.oneOf(['', 'has-text-weight-light', 'has-text-weight-normal', 'has-text-weight-medium', 'has-text-weight-semibold', 'has-text-weight-bold']),
 };
 

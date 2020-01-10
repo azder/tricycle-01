@@ -8,6 +8,7 @@ import AdvancedSearch from '../search/advanced-search/advanced-search.component.
 import SimpleSearch from '../search/simple-search/simple-search.container.js';
 
 import CN from './app.module.scss';
+import Notification from './notification.container.js';
 
 
 const App = (
@@ -15,7 +16,9 @@ const App = (
     () => (
         <div className={cnames(CN.main, 'is-marginless')}>
 
-            <nav className="navbar">
+            <Notification/>
+
+            <nav className="navbar is-fixed-top">
                 <div className="navbar-menu is-active">
                     <div className="navbar-item is-expanded">
                         <SimpleSearch placeholder="Search"/>
