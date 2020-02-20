@@ -9,14 +9,11 @@ const found = tie(action, AT.prospectsFound);
 
 
 export default (
-
     data => (
-
         async dispatch$ => {
 
             dispatch$(search(data));
 
-            console.log('search.action()', data);
             const query = Object
                 .keys(data)
                 .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`)

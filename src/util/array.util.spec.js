@@ -22,4 +22,16 @@ describe('rowsFrom function', () => {
 
     });
 
+
+    it('returns empty array on null or undefined', () => {
+
+        const actual = rowsFrom(3, null);
+        const expected = [];
+
+        expect(actual).toEqual(expected);
+
+        expect(rowsFrom(void 0, void 6)).toEqual([]);
+
+    });
+
 });
